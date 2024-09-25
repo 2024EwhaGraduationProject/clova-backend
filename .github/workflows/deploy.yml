@@ -14,23 +14,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: checkout
+    - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: create env file
+    # Create the .env file locally
+    - name: Create .env file locally
       run: |
-        touch .env
-        echo "${{ secrets.ENV_VARS }}" >> .env
+        echo "${{ secrets.ENV_VARS }}" > .env
 
-    - name: create remote directory
+    # Ensure remote directory exists
+    - name: Create remote directory
       uses: appleboy/ssh-action@v0.1.9
       with:
         host: ${{ secrets.HOST }}
         username: ubuntu
         key: ${{ secrets.KEY }}
-        script: mkdir -p /home/ubuntu/srv/ubuntu
+        script: mkdir -p /home/ubuntu/srv/ubuntu/clova
 
-    - name: copy source via ssh key
+    # Copy source files to remote server
+    - name: Copy source via rsync
       uses: burnett01/rsync-deployments@4.1
       with:
         switches: -avzr --delete
@@ -39,7 +41,18 @@ jobs:
         remote_user: ubuntu
         remote_key: ${{ secrets.KEY }}
 
-    - name: executing remote ssh commands using ssh-action
+    # Copy .env file to remote server
+    - name: Copy .env file to remote server
+      uses: appleboy/scp-action@v0.1.9
+      with:
+        host: ${{ secrets.HOST }}
+        username: ubuntu
+        key: ${{ secrets.KEY }}
+        source: ".env"
+        target: "/home/ubuntu/srv/ubuntu/clova/.env"
+
+    # Execute deploy script on remote server
+    - name: Execute deploy script on remote server
       uses: appleboy/ssh-action@v0.1.9
       with:
         host: ${{ secrets.HOST }}
