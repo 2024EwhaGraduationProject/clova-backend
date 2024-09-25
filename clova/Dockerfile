@@ -19,5 +19,6 @@ COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 RUN apk del jpeg-dev zlib-dev
 
+
 # 컨테이너로 소스 코드 복사
 COPY . /app/
