@@ -41,15 +41,15 @@ jobs:
         remote_user: ubuntu
         remote_key: ${{ secrets.KEY }}
 
-    # Copy .env file to remote server
-    - name: Copy .env file to remote server
-      uses: appleboy/scp-action@v0.1.9
+    # Copy .env file to remote server using ssh
+    - name: Copy .env file using ssh
+      uses: appleboy/ssh-action@v0.1.9
       with:
         host: ${{ secrets.HOST }}
         username: ubuntu
         key: ${{ secrets.KEY }}
-        source: ".env"
-        target: "/home/ubuntu/srv/ubuntu/clova/.env"
+        script: |
+          echo "${{ secrets.ENV_VARS }}" > /home/ubuntu/srv/ubuntu/clova/.env
 
     # Execute deploy script on remote server
     - name: Execute deploy script on remote server
