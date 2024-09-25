@@ -162,15 +162,15 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 #https://velog.io/@oen/Django-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8-%EC%9E%AC%EC%84%A4%EC%A0%95-%EB%A9%94%EC%9D%BC-%EB%B3%B4%EB%82%B4%EA%B8%B0
 
-#EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-EMAIL_USE_TLS = True
-EMAIL_PORT = '587'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = env('USER')
-EMAIL_HOST_PASSWORD = env('PASSWORD')
-#EMAIL_HOST_USER="2024clova@gmail.com"
-#EMAIL_HOST_PASSWORD="guaz twki ounk djjm"
+# #EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = '587'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = env('USER')
+# EMAIL_HOST_PASSWORD = env('PASSWORD')
+# #EMAIL_HOST_USER="2024clova@gmail.com"
+# #EMAIL_HOST_PASSWORD="guaz twki ounk djjm"
 
-#SERVER_EMAIL = EMAIL_HOST_USER
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+# #SERVER_EMAIL = EMAIL_HOST_USER
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
