@@ -23,7 +23,7 @@ jobs:
         echo "${{ secrets.ENV_VARS }}" >> .env
 
     - name: create remote directory
-      uses: appleboy/ssh-action@v0.1.9 # 최신 버전으로 변경
+      uses: appleboy/ssh-action@v0.1.9
       with:
         host: ${{ secrets.HOST }}
         username: ubuntu
@@ -34,16 +34,16 @@ jobs:
       uses: burnett01/rsync-deployments@4.1
       with:
         switches: -avzr --delete
-        remote_path: /home/ubuntu/srv/ubuntu/
+        remote_path: /home/ubuntu/srv/ubuntu/clova/
         remote_host: ${{ secrets.HOST }}
         remote_user: ubuntu
         remote_key: ${{ secrets.KEY }}
 
     - name: executing remote ssh commands using ssh-action
-      uses: appleboy/ssh-action@v0.1.9  # 최신 버전으로 변경
+      uses: appleboy/ssh-action@v0.1.9
       with:
         host: ${{ secrets.HOST }}
         username: ubuntu
         key: ${{ secrets.KEY }}
         script: |
-          sh /home/ubuntu/srv/ubuntu/config/scripts/deploy.sh
+          sh /home/ubuntu/srv/ubuntu/clova/config/scripts/deploy.sh
