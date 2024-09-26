@@ -12,6 +12,8 @@ RUN apk update && apk add python3 python3-dev mariadb-dev build-base && pip3 ins
 # pip 최신 버전으로 업그레이드
 RUN pip install --upgrade pip
 
+RUN apt-get update && apt-get install -y g++
+
 # Python 종속성 설치 (requirements.txt)
 RUN apk update && apk add libpq jpeg-dev zlib-dev libjpeg
 RUN apk update \
