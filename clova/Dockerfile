@@ -10,7 +10,7 @@ RUN apk add --no-cache mariadb-connector-c-dev
 RUN apk update && apk add python3 python3-dev mariadb-dev build-base && pip3 install mysqlclient && apk del python3-dev mariadb-dev build-base
 
 # pip 최신 버전으로 업그레이드
-RUN pip install --upgrade pip
+RUN pip3 install --upgrade pip
 
 RUN apt-get update && apt-get install -y g++
 
