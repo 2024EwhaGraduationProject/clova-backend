@@ -12,7 +12,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install dependencies and g++
-RUN apk update && apk add --no-cache python3-dev mariadb-dev build-base g++ jpeg-dev zlib-dev linux-headers
+RUN apk update && apk add --no-cache \
+    python3-dev \
+    mariadb-dev \
+    build-base \
+    g++ \
+    jpeg-dev \
+    zlib-dev \
+    linux-headers
 
 # pip 최신 버전으로 업그레이드
 RUN python3 -m pip install --upgrade pip
