@@ -20,5 +20,4 @@ tzdata
 google-cloud-translate
 konlpy
 openai
-openai_secret_manager
 python-dotenv
