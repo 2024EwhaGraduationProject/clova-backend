@@ -7,13 +7,12 @@ FROM python:3.8.3-alpine as builder
 # set work directory
 WORKDIR /usr/src/app
 
-
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
-RUN apk update && apk add python3 python3-dev mariadb-dev build-base g++ && pip3 install mysqlclient
+RUN apk update && apk add python3 python3-dev mariadb-dev build-base g++ && pip3 install --no-cache-dir mysqlclient
 
 # pip 최신 버전으로 업그레이드
 RUN python3 -m pip install --upgrade pip setuptools
@@ -51,17 +50,22 @@ RUN mkdir $APP_HOME/media
 WORKDIR $APP_HOME
 
 # install dependencies
-RUN apk update && apk add libpq tzdata g++
+RUN apk update && apk add libpq tzdata g++ mariadb-dev
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+
+# build essential tools and libraries for python packages
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
     && apk add --no-cache jpeg-dev zlib-dev mariadb-dev libxml2-dev libxslt-dev
+
+# Copy wheels from the builder stage
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
-RUN python -m pip install --upgrade pip
-RUN pip install --upgrade pip setuptools wheel
-RUN pip install mysqlclient
-RUN pip install --no-cache /wheels/*
+
+# Upgrade pip and install dependencies
+RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel
+RUN pip install --no-cache-dir mysqlclient
+RUN pip install --no-cache-dir /wheels/*
 RUN apk del build-deps
 
 # set timezone
