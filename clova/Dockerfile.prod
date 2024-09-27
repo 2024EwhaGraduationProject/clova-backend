@@ -53,11 +53,10 @@ RUN apk update && apk add libpq tzdata g++
 RUN ln -snf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
 RUN apk update \
     && apk add --virtual build-deps gcc python3-dev musl-dev \
-    && apk add --no-cache jpeg-dev zlib-dev mariadb-dev libxml2-dev libxslt-dev
+    && apk add --no-cache jpeg-dev zlib-dev mariadb-dev
 COPY --from=builder /usr/src/app/wheels /wheels
 COPY --from=builder /usr/src/app/requirements.txt .
-RUN python -m pip install --upgrade pip
-RUN pip install --upgrade setuptools wheel
+RUN pip install --upgrade pip setuptools
 RUN pip install mysqlclient
 RUN pip install --no-cache /wheels/*
 RUN apk del build-deps
