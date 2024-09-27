@@ -2,7 +2,7 @@
 ###########
 
 # pull official base image
-FROM python:3.8.3-alpine as builder
+FROM python:3.9-alpine as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -65,7 +65,7 @@ COPY --from=builder /usr/src/app/requirements.txt .
 # Upgrade pip and install dependencies
 RUN python3 -m pip install --no-cache-dir --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir mysqlclient
-RUN pip install --no-cache-dir /wheels/*
+RUN pip install --no-cache-dir --verbose /wheels/*
 RUN apk del build-deps
 
 # set timezone
