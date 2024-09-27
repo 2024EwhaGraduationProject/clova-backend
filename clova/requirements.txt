@@ -15,7 +15,7 @@ django-rest-auth==0.9.5
 django-model-utils
 django-allauth>=0.43.0
 PyMySQL==1.1.0
-Pillow>=0.10.0
+Pillow>=9.0.0,<10.0.0
 tzdata
 google-cloud-translate
 konlpy
